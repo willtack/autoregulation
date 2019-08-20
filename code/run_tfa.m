@@ -23,8 +23,6 @@
 
 function []=run_tfa(subname, artery, side)
 
-%clear all
-
 file_name = strcat(subname, '_', side, '_', artery,'_tsv.tsv');
 SubdirName = strcat('/data/jux/detre_group/tfa/inputs/');
 
@@ -53,13 +51,13 @@ tfa_mat = cell2mat(tfa_cell);
 
 % list the fields we want and their indices
 fields = [ "Mean_abp", "Std_abp", "Mean_cbfv", "Std_cbfv", "Gain_vlf", "Phase_vlf", "Coh2_vlf", "Gain_lf", "Phase_lf", "Coh2_lf", "Gain_hf", "Phase_hf", "Coh2_hf"];
-field_indices = [ 1 2 3 4 13 14 15 18 19 20 23 24 25 ] ;
+field_indices = [ 1 2 3 4 7 8 9 12 13 14 17 18 19 ] ;
 
 col1 = fields';
 col2 = zeros(13,1);
 for i = 1:length(field_indices)
-    f = fields(i);
-    value = tfa_mat(i);
+    j = field_indices(i);
+    value = tfa_mat(j);
     col2(i) = value;
 end
 
@@ -85,15 +83,15 @@ fclose(file);
 
 
 %Save all the figures
-FolderName = strcat('/data/jux/detre_group/tfa/outputs/', subname);   
-FigList = findobj(allchild(0), 'flat', 'Type', 'figure');
-for iFig = 1:length(FigList)
-  FigHandle = FigList(iFig);
-  FigName   = num2str(get(FigHandle, 'Number'));
-  s = strcat(subname, '_', side, '_', artery, '_fig_', FigName);
-  set(0, 'CurrentFigure', FigHandle);
-  savefig(fullfile(FolderName, [s '.fig']));
-end
+% FolderName = strcat('/data/jux/detre_group/tfa/outputs/', subname);   
+% FigList = findobj(allchild(0), 'flat', 'Type', 'figure');
+% for iFig = 1:length(FigList)
+%   FigHandle = FigList(iFig);
+%   FigName   = num2str(get(FigHandle, 'Number'));
+%   s = strcat(subname, '_', side, '_', artery, '_fig_', FigName);
+%   set(0, 'CurrentFigure', FigHandle);
+%   savefig(fullfile(FolderName, [s '.fig']));
+% end
 
 
 end
