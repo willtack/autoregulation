@@ -1,0 +1,33 @@
+			 Mean_abp: 62.9819
+              Std_abp: 18.7266
+            Mean_cbfv: 26.3265
+             Std_cbfv: 6.5382
+              overlap: 59.1797
+                    H: [2048x1 double]
+                    C: [2048x1 double]
+                    f: [2048x1 double]
+                  Pxx: [2048x1 double]
+                  Pyy: [2048x1 double]
+                  Pxy: [2048x1 double]
+           No_windows: 6
+             Gain_vlf: 0.4885
+            Phase_vlf: 6.7385
+             Coh2_vlf: 0.5794
+            P_abp_vlf: 3.2265
+           P_cbfv_vlf: 1.2544
+              Gain_lf: 0.3661
+             Phase_lf: 45.8445
+              Coh2_lf: 0.5360
+             P_abp_lf: 4.3447
+            P_cbfv_lf: 0.6530
+              Gain_hf: 0.5725
+             Phase_hf: -9.1077
+              Coh2_hf: 0.2911
+             P_abp_hf: 0.5037
+            P_cbfv_hf: 0.2799
+    Gain_vlf_not_norm: 0.4885
+     Gain_lf_not_norm: 0.3661
+     Gain_hf_not_norm: 0.5725
+        Gain_vlf_norm: 1.8555
+         Gain_lf_norm: 1.3908
+         Gain_hf_norm: 2.1748
