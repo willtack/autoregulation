@@ -21,11 +21,11 @@ RECAST H026 RIGHT ACA.xlsx
 
 * Run **./convert.sh**** **. This will convert all the excel files into tsvs and rename them so that there are underscores in between subject name, hemisphere, and artery, resulting in a directory that looks like this:
 
-![image alt text](image_0.png)
+![image alt text](images/image_0.png)
 
 With tsv files that look like this:
 
-![image alt text](image_1.png)
+![image alt text](images/image_1.png)
 
 Prep the transfer function analysis
 
@@ -47,11 +47,11 @@ Prep the transfer function analysis
 
 * Run **./batch_run_tfa.sh**. You’ll start to see something like this:
 
-![image alt text](image_3.png)
+![image alt text](imagse/image_3.png)
 
-* All the results will be saved in each subject’s folder in **outputs/** ![image alt text](image_4.png)
+* All the results will be saved in each subject’s folder in **outputs/** ![image alt text](images/image_4.png)
 
-* There will be a text file for each artery and side that looks like this:![image alt text](image_5.png)
+* There will be a text file for each artery and side that looks like this:![image alt text](images/image_5.png)
 
 * And there will be three figures that look like this:
 
@@ -61,6 +61,6 @@ Prep the transfer function analysis
 
 * Now the **output/h0xx** folder looks like this:
 
-![image alt text](image_6.png)
+![image alt text](images/image_6.png)
 
 * And we’re done! You can load those text files into an excel file and they should fit to the cells automatically and they’re ready to do group-level stats on.
