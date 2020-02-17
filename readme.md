@@ -29,7 +29,7 @@ With tsv files that look like this:
 
 Prep the transfer function analysis
 
-* If not done already, make a folder with these sub-folders and files![image alt text](image_2.png)
+* If not done already, make a folder with these sub-folders and files![image alt text](images/image_2.png)
 
 * Copy all the tsv files into **Inputs**
 
@@ -47,13 +47,13 @@ Prep the transfer function analysis
 
 * Run **./batch_run_tfa.sh**. You’ll start to see something like this:
 
-![image alt text](imagse/image_3.png)
+![image alt text](images/image_3.png)
 
 * All the results will be saved in each subject’s folder in **outputs/** ![image alt text](images/image_4.png)
 
 * There will be a text file for each artery and side that looks like this:![image alt text](images/image_5.png)
 
-* And there will be three figures that look like this:
+* And there will be three figures.
 
 * Since they’re .fig files and completely useless, we convert them to the useful PNG format, using **batch_convert.sh**, which runs **export_figs.m** to do the conversion for each figure
 
