@@ -13,13 +13,13 @@ Convert the xlsx files into tab-separated-value files
 
 RECAST H026 RIGHT ACA.xlsx
 
-* Put the excel files into one folder. Put **convert.sh** and **convert_excel_to_tsv.py**** **in the same folder. 
+* Put the excel files into one folder. Put **convert.sh** and **convert_excel_to_tsv.py** in the same folder. 
 
-* In the terminal, run** chmod +x convert.sh** to make the script executable
+* In the terminal, run `chmod +x convert.sh` to make the script executable
 
 * Make sure you have [Python 3](https://www.python.org/downloads/mac-osx/) and [pandas](https://pypi.org/project/pandas/) installed. If not, do **pip install pandas** from the command line
 
-* Run **./convert.sh**** **. This will convert all the excel files into tsvs and rename them so that there are underscores in between subject name, hemisphere, and artery, resulting in a directory that looks like this:
+* Run `./convert.sh`. This will convert all the excel files into tsvs and rename them so that there are underscores in between subject name, hemisphere, and artery, resulting in a directory that looks like this:
 
 ![image alt text](images/image_0.png)
 
@@ -33,7 +33,7 @@ Prep the transfer function analysis
 
 * Copy all the tsv files into **Inputs**
 
-* In **outputs**, make a folder with each subject name (e.g. **h019**) by hand or run **makedirs.sh **in the directory and change the numbers at the top of that script to reflect the subjects you want
+* In **outputs**, make a folder with each subject name (e.g. **h019**) by hand or run **makedirs.sh** in the directory and change the numbers at the top of that script to reflect the subjects you want
 
 # Running the analysis
 
@@ -41,7 +41,7 @@ Prep the transfer function analysis
 
 * IMPORTANT: in **run_tfa.m**, there are paths defined on line 4, line 74 and line 86. Edit these to your own path
 
-* Since **run_tfa.m **only processes one subject at a time, I wrote a wrapper script to loop through all the subjects and call Matlab to run **run_tfa.m** for each one. This is **batch_run_tfa.sh**. NOTE that it will loop through ALL subjects in the input folder. If some of them are already done, the simplest solution would be to temporarily put them in a different folder, run **batch_run_tfa.sh**, and then put them back in the original **inputs** folder. 
+* Since **run_tfa.m** only processes one subject at a time, I wrote a wrapper script to loop through all the subjects and call Matlab to run **run_tfa.m** for each one. This is **batch_run_tfa.sh**. NOTE that it will loop through ALL subjects in the input folder. If some of them are already done, the simplest solution would be to temporarily put them in a different folder, run **batch_run_tfa.sh**, and then put them back in the original **inputs** folder. 
 
 * IMPORTANT: like above, edit the paths at the beginning of **batch_run_tfa.sh** to reflect your setup
 
