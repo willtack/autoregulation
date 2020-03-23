@@ -4,10 +4,7 @@
 #  batch run run_tfa.m 
 #
 
-data_dir="/data/jux/detre_group/tfa/CARNet_software"
-input_dir="/data/jux/detre_group/tfa/inputs"
-
-cd $data_dir
+input_dir="/home/will/Repositories/autoregulation/inputs"
 
 for x in ${input_dir}/*.tsv
 do
@@ -16,5 +13,5 @@ do
 	side=$(echo ${filename} | cut -d '_' -f 2)
 	artery=$(echo ${filename} | cut -d '_' -f 3)
 	echo "running script for subject ${name}'s ${side} ${artery}"
-	matlab -nodisplay -r "run_tfa ${name} ${artery} ${side}; exit"
+	/usr/local/MATLAB/R2019a/bin/matlab -nodisplay -r "run_tfa ${name} ${artery} ${side}; exit"
 done

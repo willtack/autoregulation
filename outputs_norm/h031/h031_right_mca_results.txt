@@ -1,0 +1,7 @@
+Mean_abp	63.3757 
+Std_abp	27.2539 
+Mean_cbfv	-15.0223 
+Std_cbfv	15.9368 
+Coh2_vlf	0.144383 
+Coh2_lf	0.0455722 
+Coh2_hf	0.0128766 

@@ -4,10 +4,7 @@
 #  convert all the figs in /outputs with CARNet_software/export_figs.m
 #
 
-data_dir="/data/jux/detre_group/tfa/CARNet_software"
-input_dir="/data/jux/detre_group/tfa/outputs"
-
-cd $data_dir
+input_dir="/home/will/Repositories/autoregulation/outputs_norm"
 
 for subdir in ${input_dir}/*
 do
@@ -15,6 +12,6 @@ do
 	if [ $count != 0 ] #only convert if there are figs to convert
 	then 
 		echo "converting figures in ${subdir}"
-		matlab -nodisplay -r "export_figs ${subdir} 'png'; exit"
+		/usr/local/MATLAB/R2019a/bin/matlab -nodisplay -r "export_figs ${subdir} 'png'; exit"
 	fi
 done

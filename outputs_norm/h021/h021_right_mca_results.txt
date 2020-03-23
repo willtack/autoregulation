@@ -1,0 +1,13 @@
+Mean_abp	60.8196 
+Std_abp	18.3581 
+Mean_cbfv	55.9921 
+Std_cbfv	16.7561 
+Gain_vlf	1.05748 
+Phase_vlf	66.351 
+Coh2_vlf	0.454373 
+Gain_lf	0.759363 
+Phase_lf	60.548 
+Coh2_lf	0.293256 
+Gain_hf	0.505648 
+Phase_hf	61.6242 
+Coh2_hf	0.129468 
