@@ -13,27 +13,27 @@ Convert the xlsx files into tab-separated-value files
 
 RECAST H026 RIGHT ACA.xlsx
 
-* Put the excel files into one folder. Put **convert.sh** and **convert_excel_to_tsv.py**** **in the same folder. 
+* Put the excel files into one folder. Put **convert.sh** and **convert_excel_to_tsv.py** in the same folder. 
 
-* In the terminal, run** chmod +x convert.sh** to make the script executable
+* In the terminal, run `chmod +x convert.sh` to make the script executable
 
 * Make sure you have [Python 3](https://www.python.org/downloads/mac-osx/) and [pandas](https://pypi.org/project/pandas/) installed. If not, do **pip install pandas** from the command line
 
-* Run **./convert.sh**** **. This will convert all the excel files into tsvs and rename them so that there are underscores in between subject name, hemisphere, and artery, resulting in a directory that looks like this:
+* Run `./convert.sh`. This will convert all the excel files into tsvs and rename them so that there are underscores in between subject name, hemisphere, and artery, resulting in a directory that looks like this:
 
-![image alt text](image_0.png)
+![image alt text](images/image_0.png)
 
 With tsv files that look like this:
 
-![image alt text](image_1.png)
+![image alt text](images/image_1.png)
 
 Prep the transfer function analysis
 
-* If not done already, make a folder with these sub-folders and files![image alt text](image_2.png)
+* If not done already, make a folder with these sub-folders and files![image alt text](images/image_2.png)
 
 * Copy all the tsv files into **Inputs**
 
-* In **outputs**, make a folder with each subject name (e.g. **h019**) by hand or run **makedirs.sh **in the directory and change the numbers at the top of that script to reflect the subjects you want
+* In **outputs**, make a folder with each subject name (e.g. **h019**) by hand or run **makedirs.sh** in the directory and change the numbers at the top of that script to reflect the subjects you want
 
 # Running the analysis
 
@@ -41,19 +41,19 @@ Prep the transfer function analysis
 
 * IMPORTANT: in **run_tfa.m**, there are paths defined on line 4, line 74 and line 86. Edit these to your own path
 
-* Since **run_tfa.m **only processes one subject at a time, I wrote a wrapper script to loop through all the subjects and call Matlab to run **run_tfa.m** for each one. This is **batch_run_tfa.sh**. NOTE that it will loop through ALL subjects in the input folder. If some of them are already done, the simplest solution would be to temporarily put them in a different folder, run **batch_run_tfa.sh**, and then put them back in the original **inputs** folder. 
+* Since **run_tfa.m** only processes one subject at a time, I wrote a wrapper script to loop through all the subjects and call Matlab to run **run_tfa.m** for each one. This is **batch_run_tfa.sh**. NOTE that it will loop through ALL subjects in the input folder. If some of them are already done, the simplest solution would be to temporarily put them in a different folder, run **batch_run_tfa.sh**, and then put them back in the original **inputs** folder. 
 
 * IMPORTANT: like above, edit the paths at the beginning of **batch_run_tfa.sh** to reflect your setup
 
 * Run **./batch_run_tfa.sh**. You’ll start to see something like this:
 
-![image alt text](image_3.png)
+![image alt text](images/image_3.png)
 
-* All the results will be saved in each subject’s folder in **outputs/** ![image alt text](image_4.png)
+* All the results will be saved in each subject’s folder in **outputs/** ![image alt text](images/image_4.png)
 
-* There will be a text file for each artery and side that looks like this:![image alt text](image_5.png)
+* There will be a text file for each artery and side that looks like this:![image alt text](images/image_5.png)
 
-* And there will be three figures that look like this:
+* And there will be three figures.
 
 * Since they’re .fig files and completely useless, we convert them to the useful PNG format, using **batch_convert.sh**, which runs **export_figs.m** to do the conversion for each figure
 
@@ -61,6 +61,6 @@ Prep the transfer function analysis
 
 * Now the **output/h0xx** folder looks like this:
 
-![image alt text](image_6.png)
+![image alt text](images/image_6.png)
 
 * And we’re done! You can load those text files into an excel file and they should fit to the cells automatically and they’re ready to do group-level stats on.
