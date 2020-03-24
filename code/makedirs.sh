@@ -1,7 +1,9 @@
 #!/bin/bash
+#
+# Automatically create all the output directories
 
 n=1;
-max=25;
+max=40;
 while [ "$n" -le "$max" ]; do
 	if [ "$n" -lt 10 ]; then
 		mkdir "h00$n"
