@@ -19,14 +19,16 @@
 %   Modified by Will Tackett
 %   August 13, 2019
 %
-%
+%   July 8th, 2021
 
-function []=run_tfa(subname, artery, side)
+function []=run_tfa(subname, side, artery)
 
-file_name = strcat(subname, '_', side, '_', artery,'_tsv.tsv');
-SubdirName = strcat('/home/will/Repositories/autoregulation/inputs/');
+fileName = strcat(subname, '_', side, '_', artery,'_tsv.tsv');
+baseDirName = strcat('/Users/will/Desktop/TFA test'); % CHANGE
+inputDirName = strcat(baseDirName, '/inputs');
+outputDirName = strcat(baseDirName, '/outputs');
 
-X=importdata([SubdirName,file_name]); % get the data from the file
+X=importdata(fullfile(inputDirName, fileName)); % get the data from the file
 
 %X=X.data; % get only the numerical values, not the column-header text
 t=X(:,1); % first column is the time
@@ -36,57 +38,57 @@ fs=1/mean(diff(t)); % find the sampling frequency from the time-base
 
 figure % plot the raw sigals
 plot(t,p1,'k',t,v1,'k:');
-title(file_name,'interpreter','none');
+title(fileName,'interpreter','none');
 xlabel ('time (s)');
 ylabel('mmHg, cm/s');
 legend('ABP','CBFV');
 title ('Raw signals');
 axis tight
 
+% Round 1 - normalize ABP
 params.normalize_ABP = 1;
 params.normalize_CBFV = 1;
+params.plot_title=sprintf('%s %s %s (normalized for CBFV and ABP)', subname, side, artery);
+fields = [ "Mean_abp", "Std_abp", "Mean_cbfv", "Std_cbfv", "Gain_vlf", "Phase_vlf", "Coh2_vlf", "P_abp_vlf", "P_cbf_vlf", "Gain_lf", "Phase_lf", "Coh2_lf", "P_abp_lf", "P_cbf_lf", "Gain_hf", "Phase_hf", "Coh2_hf", "P_abp_hf", "P_cbfv_hf"];
+field_indices = [ 1 2 3 4 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21] ;
+values = tfa_output(p1,v1,fs,params,field_indices);
 
-params.plot_title=[make_title(file_name), ' CBFV'];% set the title of plots to the file-name
-tfa_out=tfa_car(p1,v1,fs,params); % appy tfa
-tfa_cell = struct2cell(tfa_out);
-tfa_cell(6:11,:) = []; % remove the doubles
-tfa_mat = cell2mat(tfa_cell);
 
-% list the fields we want and their indices
-fields = [ "Mean_abp", "Std_abp", "Mean_cbfv", "Std_cbfv", "Gain_vlf", "Phase_vlf", "Coh2_vlf", "Gain_lf", "Phase_lf", "Coh2_lf", "Gain_hf", "Phase_hf", "Coh2_hf"];
-field_indices = [ 1 2 3 4 7 8 9 12 13 14 17 18 19 ] ;
+% Round 2 - don't normalize ABP
+params.plot=1;
+params.normalize_ABP = 0;
+params.normalize_CBFV = 1;
+params.plot_title=sprintf('%s %s %s normalized for CBFV but not ABP', subname, side, artery);
+noabp_fields = [ "Gain_vlf_noABP", "Gain_lf_noABP", "Gain_hf_noABP" ];
+noabp_field_indices = [ 7 12 17 ];
+noabp_values = tfa_output(p1,v1,fs,params,noabp_field_indices);
 
-col1 = fields;
-col2 = zeros(13,1);
-for i = 1:length(field_indices)
-    j = field_indices(i);
-    value = tfa_mat(j);
-    col2(i) = value;
-end
+% Combine columns
+col1 = [ fields noabp_fields ];
+col2 = [ values noabp_values ];
 
 % remove NANs
 ind = ~isnan(col2);
-col2 = col2(ind);
 col1 = col1(ind);
+col2 = col2(ind);
 
-% create a string array of keys: values
-table = [col1',col2];
-
+% create a cell array of variables (cols) and observation (row)
+table = [col1; col2];
 cell = cellstr(table); % convert to cell array
-file_text=subname + "_" + side + "_" + artery + "_results.txt";
-file = fopen(strcat('/home/will/Repositories/autoregulation/outputs_norm/', subname, '/', file_text),'w');
-formatSpec = '%s\t%s \n'; % format of a given line is: string [tab] string
-[nrows, ncols] = size(cell);
+cell = [ {'Subject'; subname}, cell ]; % add additional header info
 
-%loop through rows of cell array and print the row to a line in the file
-for row = 1:nrows
-    fprintf(file, formatSpec, cell{row,:});
+% check if output folder is made already. if not, make it.
+outputSubjectFolder = strcat(outputDirName, '/', subname);
+if ~exist(outputSubjectFolder, 'dir')
+   mkdir(outputSubjectFolder)
 end
-fclose(file);
 
+% write out to csv
+file_text=subname + "_" + side + "_" + artery + "_results.csv";
+writecell(cell, strcat(outputDirName,'/', subname, '/', file_text));
 
-%Save all the figures
-FolderName = strcat('/home/will/Repositories/autoregulation/outputs_norm/', subname);
+% save all the figures
+FolderName = strcat(outputDirName, '/', subname);
 FigList = findobj(allchild(0), 'flat', 'Type', 'figure');
 for iFig = 1:length(FigList)
    FigHandle = FigList(iFig);
@@ -94,7 +96,12 @@ for iFig = 1:length(FigList)
    s = strcat(subname, '_', side, '_', artery, '_fig_', FigName);
    set(0, 'CurrentFigure', FigHandle);
    savefig(fullfile(FolderName, [s '.fig']));
- end
+end
 
+ 
+% convert figures to png and delete originals
+export_figs(outputSubjectFolder, 'png');
+cmd = sprintf("rm '%s/'*.fig", outputSubjectFolder);
+system(cmd);
 
 end
