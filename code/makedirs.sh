@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+# Automatically create all the output directories
 
 n=1;
 max=40;
